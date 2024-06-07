@@ -1,0 +1,25 @@
+{
+    "name": "sander/html_to_pdf",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "Tools\\": "src/"
+        }
+    },
+    "minimum-stability": "stable",
+    "authors": [
+        {
+            "name": "Sander",
+            "email": "sunundershadow@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.4",
+        "ext-dom": "*",
+        "ext-libxml": "*",
+        "ext-mbstring": "*",
+        "ext-gd": "*",
+        "ext-openssl": "*",
+        "dompdf/dompdf": "^3.0"
+    }
+}

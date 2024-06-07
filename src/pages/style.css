@@ -1,0 +1,55 @@
+:root {
+    --header-size: 25mm;
+    --footer-size: 60px;
+
+    --page-margin: 20px;
+
+    --page-height: 1123px;
+    --page-width: calc(794px - var(--page-margin) * 2);
+
+    font-family: DejaVu Sans, sans-serif;
+    font-size: 16px;
+
+    margin: var(--header-size) var(--page-margin) var(--footer-size) var(--page-margin);
+}
+
+h1 {
+    text-align: center;
+}
+
+h2 {
+    border-bottom: 2px solid #515151;
+    width: 70%;
+}
+
+header {
+    top: calc(0px - var(--header-size));
+
+    height: var(--header-size);
+}
+
+footer {
+    bottom: calc(0px - var(--footer-size));
+    height: var(--footer-size);
+}
+
+header, footer {
+    position: fixed;
+    left: calc(0px - var(--page-margin));
+    width: calc(100% + var(--page-margin) * 2);
+    padding: 3mm 7mm;
+}
+
+.page {
+    height: 1123px;
+    page-break-before: always;
+}
+
+table {
+    width: 100%;
+}
+
+.colored_table tr:nth-child(2n){
+    background-color: #eff8fd;
+}
+

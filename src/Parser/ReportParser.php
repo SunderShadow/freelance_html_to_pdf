@@ -4,12 +4,10 @@ namespace Tools\Parser;
 
 use DOMDocument;
 use Exception;
-use Tools\Parser\ReportSection\AnnouncementStorage;
-use Tools\Parser\ReportSection\CarMainDataStorage;
-use Tools\Parser\ReportSection\RegistrationDataStorage;
-use Tools\Parser\ReportSection\ReportSectionParser;
+use Tools\Parser\Storages\AnnouncementStorage;
+use Tools\Parser\Storages\CarMainDataStorage;
 
-class ReportParser
+class ReportParser implements DOMParser
 {
     private DOMDocument $dom_root;
 
@@ -53,7 +51,7 @@ class ReportParser
         $this->parse($data);
     }
 
-    function parse(string $domContent)
+    function parse(string $domContent): void
     {
         $this->dom_root->loadHTML($domContent,  LIBXML_NOWARNING | LIBXML_NOERROR);
 
@@ -77,4 +75,7 @@ class ReportParser
         $this->announcements                = $parser->announcements;
         $this->car_tech_info                = $parser->car_tech_info;
     }
+
+    function getData(): void
+    {}
 }

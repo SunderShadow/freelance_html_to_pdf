@@ -1,10 +1,14 @@
 <?php
 
-namespace Tools\Parser\ReportSection;
+namespace Tools\Parser;
 
 use DOMElement;
 use DOMNode;
 use DOMNodeList;
+use Tools\Parser\Sections\CarMainDataParser;
+use Tools\Parser\Storages\AnnouncementStorage;
+use Tools\Parser\Storages\CarMainDataStorage;
+use Tools\Parser\Storages\CarMileageStorage;
 
 class ReportSectionParser
 {
@@ -40,30 +44,16 @@ class ReportSectionParser
             }
         }
 
-        $this->parseCarMainData(array_slice($nodes, 0, 6));
+        $mainDataParser = new CarMainDataParser();
+        $mainDataParser->parse(array_slice($nodes, 0, 6));
+        $this->car_main_data = $mainDataParser->getData();
+
         $this->parseRegistrationData(array_slice($nodes, 6, 4));
         $this->parseCarMileage(array_slice($nodes, 10, 4));
         $offset = $this->parseOwnersHistory($nodes, 14);
         $offset = $this->parseInsuranceHistory($nodes, $offset);
         $this->parseCharacteristic(array_slice($nodes, $offset, 3));
         $this->parseAnnouncements(array_slice($nodes, $offset + 3));
-    }
-
-    /**
-     * @param DOMNode[] $nodes
-     * @return void
-     */
-    private function parseCarMainData(array $nodes)
-    {
-        /** @var DOMNodeList $main_data_nodes */
-        $main_data_nodes = $nodes[2]->childNodes;
-
-        $this->car_main_data->name              = $nodes[0]->textContent;
-        $this->car_main_data->model_img_link    = $nodes[1]->attributes->getNamedItem('src')->textContent;
-        $this->car_main_data->car_img_link      = $nodes[4]->attributes->getNamedItem('src')->textContent;
-        $this->car_main_data->manufacture_year  = trim(explode(':', $main_data_nodes->item(2)->textContent)[1]);
-        $this->car_main_data->VIN               = trim(explode(':', $main_data_nodes->item(6)->textContent)[1]);
-        $this->car_main_data->state_number      = trim(explode(':', $main_data_nodes->item(10)->textContent)[1]);
     }
 
     /**

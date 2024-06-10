@@ -1,6 +1,6 @@
 <?php
 
-namespace Tools\Parser\ReportSection;
+namespace Tools\Parser\Storages;
 
 class AnnouncementStorage
 {

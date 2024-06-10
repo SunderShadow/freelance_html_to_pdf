@@ -8,9 +8,9 @@ interface NodeParser
 {
     /**
      * @param DOMNode[] $nodes
-     * @return void
+     * @return int offset
      */
-    public function parse(array $nodes): void;
+    public function parse(array $nodes): int;
 
     public function getData();
 }

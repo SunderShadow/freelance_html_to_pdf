@@ -6,6 +6,7 @@ use DOMElement;
 use DOMNode;
 use DOMNodeList;
 use Tools\Parser\Sections\CarMainDataParser;
+use Tools\Parser\Sections\RegistrationDataParser;
 use Tools\Parser\Storages\AnnouncementStorage;
 use Tools\Parser\Storages\CarMainDataStorage;
 use Tools\Parser\Storages\CarMileageStorage;
@@ -48,49 +49,15 @@ class ReportSectionParser
         $mainDataParser->parse(array_slice($nodes, 0, 6));
         $this->car_main_data = $mainDataParser->getData();
 
-        $this->parseRegistrationData(array_slice($nodes, 6, 4));
+        $registrationDataParser = new RegistrationDataParser();
+        $registrationDataParser->parse(array_slice($nodes, 6, 4));
+        $this->registration_data_storage = $registrationDataParser->getData();
+
         $this->parseCarMileage(array_slice($nodes, 10, 4));
         $offset = $this->parseOwnersHistory($nodes, 14);
         $offset = $this->parseInsuranceHistory($nodes, $offset);
         $this->parseCharacteristic(array_slice($nodes, $offset, 3));
         $this->parseAnnouncements(array_slice($nodes, $offset + 3));
-    }
-
-    /**
-     * @param DOMNode[] $nodes
-     * @return void
-     */
-    private function parseRegistrationData(array $nodes)
-    {
-        $title                   = $nodes[0];
-        $table_data              = $nodes[1];
-        $about_reference         = $nodes[2];
-        $is_registration_checked = $nodes[3];
-
-        $table_nodes = $table_data->childNodes;
-        foreach ($table_nodes as $table_node)
-        {
-            if ($table_node->nodeName !== '#text')
-            {
-                $this->registration_data_storage[$table_node->childNodes[0]->textContent] = $table_node->childNodes[1]->textContent;
-            }
-        }
-
-//        $this->registration_data_storage->IDNV                    = $table_nodes[1];
-//        $this->registration_data_storage->manufacture_year        = $table_nodes[3]->childNodes[1]->textContent;
-//        $this->registration_data_storage->body_type               = $table_nodes[5]->childNodes[1]->textContent;
-//        $this->registration_data_storage->body_number             = $table_nodes[7]->childNodes[1]->textContent;
-//        $this->registration_data_storage->engine_number           = $table_nodes[9]->childNodes[1]->textContent;
-//        $this->registration_data_storage->fuel_type               = $table_nodes[11]->childNodes[1]->textContent;
-//        $this->registration_data_storage->engine_capacity         = $table_nodes[13]->childNodes[1]->textContent;
-//        $this->registration_data_storage->color                   = $table_nodes[15]->childNodes[1]->textContent;
-//        $this->registration_data_storage->curb_weight             = $table_nodes[17]->childNodes[1]->textContent;
-//        $this->registration_data_storage->full_weight             = $table_nodes[19]->childNodes[1]->textContent;
-//        $this->registration_data_storage->seats_quantity          = $table_nodes[21]->childNodes[1]->textContent;
-//        $this->registration_data_storage->first_registration_date = $table_nodes[23]->childNodes[1]->textContent;
-//        $this->registration_data_storage->owners_number           = $table_nodes[25]->childNodes[1]->textContent;
-//        $this->registration_data_storage->status                  = $table_nodes[27]->childNodes[1]->textContent;
-//        $this->registration_data_storage->prohibitions            = $table_nodes[29]->childNodes[1]->textContent;
     }
 
     /**

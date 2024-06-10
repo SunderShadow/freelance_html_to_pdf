@@ -15,7 +15,7 @@ class CarMainDataParser implements NodeParser
         $this->storage = new CarMainDataStorage();
     }
 
-    public function parse(array $nodes): void
+    public function parse(array $nodes): int
     {
         /** @var DOMNodeList $main_data_nodes */
         $main_data_nodes = $nodes[2]->childNodes;
@@ -27,6 +27,8 @@ class CarMainDataParser implements NodeParser
         $this->storage->manufacture_year  = trim(explode(':', $main_data_nodes->item(2)->textContent)[1]);
         $this->storage->VIN               = trim(explode(':', $main_data_nodes->item(6)->textContent)[1]);
         $this->storage->state_number      = trim(explode(':', $main_data_nodes->item(10)->textContent)[1]);
+
+        return 0;
     }
 
     public function getData(): CarMainDataStorage

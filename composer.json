@@ -6,6 +6,7 @@
             "Tools\\": "src/"
         }
     },
+    "version": "0.6",
     "minimum-stability": "stable",
     "authors": [
         {

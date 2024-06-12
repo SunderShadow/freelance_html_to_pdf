@@ -1,8 +1,8 @@
 <?php /** @var \Tools\Parser\ReportParser $parser */?>
 
 <div class="page">
-    <h2>Istoricul polițelor de asigurare</h2>
-        <?php foreach ($parser->insurance_history as $i => $history_item): ?>
+    <h2><?= $insurance_history['title'] ?></h2>
+        <?php foreach ($insurance_history['history'] as $i => $history_item): ?>
             <div class="insurance_history">
                 <span class="insurance_history_index"><?= $i ?></span>
                 <?php foreach ($history_item as $title => $value): ?>

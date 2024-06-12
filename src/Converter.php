@@ -4,56 +4,48 @@ namespace Tools;
 
 use Dompdf\Dompdf;
 use Dompdf\Options;
-use Tools\Parser\ReportParser;
 
 class Converter
 {
-    protected string $templateFilepath = __DIR__ . '/pages/index.php';
+    protected Dompdf $dompdf;
 
-    protected ReportParser $parser;
+    protected View $view;
 
-    protected string $convertedPDF;
+    protected Parser $parser;
 
     public function __construct()
     {
-        $this->parser = new \Tools\Parser\ReportParser();
+        $this->parser = new Parser();
+        $this->view   = new View();
+        $this->setupDomPDF();
     }
 
-
-    /**
-     * @throws \Exception
-     */
-    public function loadHtmlFile(string $filepath)
+    protected function setupDomPDF()
     {
-        $this->parser->parseDocument($filepath);
-    }
-
-    public function convert()
-    {
-        $parser = $this->parser;
-        $html = (function ($parser) {
-            ob_start();
-            require 'pages/index.php';
-            return ob_get_clean();
-        })($parser);
-
         $options = new Options();
         $options->set('enable_remote', true);
 
-        $pdf = new Dompdf($options);
+        $this->dompdf = new Dompdf($options);
+        $this->dompdf->setPaper('A4');
+    }
 
-        $pdf->loadHtml($html);
-        $pdf->setPaper('A4');
-        $pdf->render();
+    public function loadHtmlFile(string $filepath)
+    {
+        $this->parser->parseFile($filepath);
+    }
 
-        ob_start();
-        $pdf->stream();
-        $this->convertedPDF = ob_get_clean();
+    public function convertToPDF()
+    {
+        $data = $this->parser->getData();
+        $html = $this->view->viewWithoutRender('index', $data);
+
+        $this->dompdf->loadHtml($html);
+        $this->dompdf->render();
     }
 
     public function getPDF(): string
     {
-        return $this->convertedPDF;
+        return $this->dompdf->output();
     }
 
     public function savePDF(string $filepath)
@@ -61,10 +53,5 @@ class Converter
         $f_stream = fopen($filepath, 'w');
         fwrite($f_stream, $this->getPDF());
         fclose($f_stream);
-    }
-
-    public function setTemplateFilepath(string $filepath)
-    {
-        $this->templateFilepath = $filepath;
     }
 }

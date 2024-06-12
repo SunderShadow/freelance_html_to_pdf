@@ -1,9 +1,9 @@
 <?php /** @var \Tools\Parser\ReportParser $parser */?>
 <div class="page">
-    <h2 id="owner_history_title">Istoric al schimbării proprietarilor</h2>
+    <h2 id="owner_history_title"><?= $owners_history['title'] ?></h2>
     <table id="owner_history_table" class="colored_table">
         <tbody>
-        <?php foreach ($parser->owners_history as $key => $value): ?>
+        <?php foreach ($owners_history['history'] as $key => $value): ?>
             <tr>
                 <td><span class="history_number"><?= $key + 1 ?></span></td>
                 <td><?= $value ?></td>

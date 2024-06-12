@@ -1,5 +1,3 @@
-<?php /** @var \Tools\Parser\ReportParser $parser */?>
-
 <?php
 $side_width_ruler_svg = base64_encode(
         '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 398 7" class="IconSvg IconSvg_name_SvgArrowHorisontalLong IconSvg_size_24 VinReportTechInfo__arrowHorizontalIcon"><path fill="#000" fill-rule="evenodd" d="M387.626 7 398 3.538 387.626 0v3H10.374V0L0 3.462 10.374 7V4h377.252z" clip-rule="evenodd" opacity="0.24"></path></svg>'
@@ -12,34 +10,34 @@ $height_ruler_svg = base64_encode(
 );
 ?>
 <div class="page">
-    <h2>Caracteristici</h2>
+    <h2><?= $characteristics['title'] ?></h2>
     <table class="car_tech_info_table">
         <tr>
             <td>
-                <img id="side_img" class="cart_tech_info_img" src="<?= $parser->host_url . $parser->car_tech_info['side']['img']  ?>" alt="">
+                <img id="side_img" class="cart_tech_info_img" src="https://infocar.md<?= $characteristics['side']['img']  ?>" alt="">
                 <img id="side_ruler_height" class="cart_tech_info_ruler_height" src="data:image/svg+xml;base64,<?= $height_ruler_svg ?>" alt="">
                 <img id="side_ruler_width" class="cart_tech_info_ruler_width" src="data:image/svg+xml;base64,<?= $side_width_ruler_svg ?>" alt="">
 
                 <span id="side_width" class="cart_tech_info_width">
-                    <?= $parser->car_tech_info['side']['width'] ?>
+                    <?= $characteristics['side']['width'] ?>
                 </span>
 
                 <span id="side_height" class="cart_tech_info_height">
-                    <?= $parser->car_tech_info['side']['height'] ?>
+                    <?= $characteristics['side']['height'] ?>
                 </span>
             </td>
             <td>
-                <img id="front_img" class="cart_tech_info_img front_img" src="<?= $parser->host_url . $parser->car_tech_info['front']['img'] ?>" alt="">
+                <img id="front_img" class="cart_tech_info_img front_img" src="https://infocar.md<?= $characteristics['front']['img'] ?>" alt="">
                 <img class="cart_tech_info_ruler_width" src="data:image/svg+xml;base64,<?= $front_width_ruler_svg ?>" alt="">
 
                 <span id="front_width" class="cart_tech_info_width">
-                    <?= $parser->car_tech_info['front']['width'] ?>
+                    <?= $characteristics['front']['width'] ?>
                 </span>
             </td>
         </tr>
     </table>
     <table id="characteristic_table" class="colored_table">
-        <?php foreach ($parser->characteristic as $title => $value): ?>
+        <?php foreach ($characteristics['properties'] as $title => $value): ?>
             <tr>
                 <th><?= $title ?></th>
                 <td><?= $value ?></td>

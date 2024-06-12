@@ -15,7 +15,7 @@ class MileageHistoryParser implements ParserInterface
 
         return [
             'title'   => $titleNode->textContent,
-            'history_table' => $this->parseHistoryTable($historyTableNode)
+            'history_table' => $historyTableNode->nodeName === 'table' ? $this->parseHistoryTable($historyTableNode) : null
         ];
     }
 

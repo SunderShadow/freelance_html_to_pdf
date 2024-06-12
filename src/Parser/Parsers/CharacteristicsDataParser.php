@@ -16,7 +16,7 @@ class CharacteristicsDataParser implements ParserInterface
         return [
             'title'      => $titleNode->textContent,
             ...$this->getImages($XPath),
-            'properties' => $this->getProperties($propertiesNode)
+            'properties' => $propertiesNode->nodeName === 'ul' ? $this->getProperties($propertiesNode) : null
         ];
     }
 

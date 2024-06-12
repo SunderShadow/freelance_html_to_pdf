@@ -15,7 +15,7 @@ class RegistrationDataParser implements ParserInterface
 
         return [
             'title' => $titleNode->textContent,
-            'props' => $this->parseProps($propsNode)
+            'props' => $propsNode->nodeName === 'ul' ? $this->parseProps($propsNode) : null
         ];
     }
 

@@ -13,6 +13,7 @@ class MainDataParser implements ParserInterface
         $titleNode    = $XPath->query('/html/body/section/h1[1]')[0];
 
         $carTypeNode  = $titleNode->nextSibling->nextSibling;
+
         if ($carTypeNode->nodeName !== 'img') {
             $carTypeNode = $titleNode;
         }

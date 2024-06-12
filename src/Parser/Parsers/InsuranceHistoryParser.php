@@ -15,7 +15,7 @@ class InsuranceHistoryParser implements ParserInterface
 
         return [
             'title'   => $titleNode->textContent,
-            'history' => $this->getInsuranceNodes($historyNodes)
+            'history' => $historyNodes->count() ? $this->getInsuranceNodes($historyNodes) : null
         ];
     }
 

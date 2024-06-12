@@ -1,4 +1,4 @@
-<?php /** @var \Tools\Parser\ReportParser $parser */?>
+<?php if ($owners_history['history']): ?>
 <div class="page">
     <h2 id="owner_history_title"><?= $owners_history['title'] ?></h2>
     <table id="owner_history_table" class="colored_table">
@@ -56,3 +56,4 @@
         background: black;
     }
 </style>
+<?php endif ?>

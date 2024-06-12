@@ -11,11 +11,11 @@ class OwnersHistoryParser implements ParserInterface
     public function parse(DOMXPath $XPath): array
     {
         $titleNode = $XPath->query('/html/body/section/h2[3]')[0];
-        $elements  = $XPath->query('/html/body/section/h2[3]/following::div[@class="period"]/div[@class="period-dates"]');
+        $history   = $XPath->query('/html/body/section/h2[3]/following::div[@class="period"]/div[@class="period-dates"]');
 
         return [
             'title'   => $titleNode->textContent,
-            'history' => $this->getOwnersHistoryDates($elements)
+            'history' => $history->count() ? $this->getOwnersHistoryDates($history) : null
         ];
     }
 

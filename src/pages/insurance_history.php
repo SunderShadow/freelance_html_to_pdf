@@ -1,5 +1,4 @@
-<?php /** @var \Tools\Parser\ReportParser $parser */?>
-
+<?php if ($insurance_history['history']): ?>
 <div class="page">
     <h2><?= $insurance_history['title'] ?></h2>
         <?php foreach ($insurance_history['history'] as $i => $history_item): ?>
@@ -37,3 +36,4 @@
         top: 20px;
     }
 </style>
+<?php endif ?>

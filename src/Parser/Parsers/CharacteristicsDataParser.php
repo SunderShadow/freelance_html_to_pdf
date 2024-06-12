@@ -22,6 +22,10 @@ class CharacteristicsDataParser implements ParserInterface
 
     protected function getImages(DOMXPath $XPath): array
     {
+        if (!$XPath->query('/html/body/section/section[contains(@class, "VinReportTechInfo")]')[0]) {
+            return [];
+        }
+
         $sideImgNode    = $XPath->query('/html/body/section/section[contains(@class, "VinReportTechInfo")]/div/div/descendant::img[contains(@class, "VinReportTechInfo__bodySideImage")]')[0];
         $sideHeightNode = $XPath->query('/html/body/section/section[contains(@class, "VinReportTechInfo")]/div/div/descendant::div[contains(@class, "VinReportTechInfo__bodyHeightValue")]')[0];
         $sideWidthNode  = $XPath->query('/html/body/section/section[contains(@class, "VinReportTechInfo")]/div/div/descendant::div[contains(@class, "VinReportTechInfo__bodySize")]')[0];

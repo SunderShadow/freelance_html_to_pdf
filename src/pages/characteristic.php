@@ -11,6 +11,7 @@ $height_ruler_svg = base64_encode(
 ?>
 <div class="page">
     <h2><?= $characteristics['title'] ?></h2>
+    <?php if (isset($characteristics['side']) && isset($characteristics['front'])): ?>
     <table class="car_tech_info_table">
         <tr>
             <td>
@@ -36,6 +37,7 @@ $height_ruler_svg = base64_encode(
             </td>
         </tr>
     </table>
+    <?php endif ?>
     <table id="characteristic_table" class="colored_table">
         <?php foreach ($characteristics['properties'] as $title => $value): ?>
             <tr>

@@ -13,11 +13,10 @@ class CharacteristicsDataParser implements ParserInterface
         $titleNode      = $XPath->query('/html/body/section/h2[5]')[0];
         $propertiesNode = $titleNode->nextSibling->nextSibling->nextSibling->nextSibling;
 
-        return [
+        return array_merge([
             'title'      => $titleNode->textContent,
-            ...$this->getImages($XPath),
             'properties' => $propertiesNode->nodeName === 'ul' ? $this->getProperties($propertiesNode) : null
-        ];
+        ], $this->getImages($XPath));
     }
 
     protected function getImages(DOMXPath $XPath): array

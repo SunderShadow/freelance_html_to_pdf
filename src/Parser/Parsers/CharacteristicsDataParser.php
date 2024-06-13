@@ -12,11 +12,12 @@ class CharacteristicsDataParser implements ParserInterface
     {
         $titleNode      = $XPath->query('/html/body/section/h2[5]')[0];
         $propertiesNode = $titleNode->nextSibling->nextSibling->nextSibling->nextSibling;
-
+        $getImgs = $this->getImages($XPath);
         return [
             'title'      => $titleNode->textContent,
-            ...$this->getImages($XPath),
-            'properties' => $this->getProperties($propertiesNode)
+            'side' => $getImgs['side'],
+            'front' => $getImgs['front'],
+            'properties' => $propertiesNode->nodeName === 'ul' ? $this->getProperties($propertiesNode) : null
         ];
     }
 
